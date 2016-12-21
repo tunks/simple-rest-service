@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd">
+    <!--	mongodb configuration   -->
+    <bean id="mongoClient"
+          class="org.springframework.data.mongodb.core.MongoClientFactoryBean">
+        <property name="host" value="${spring.mongodb.host}" />
+        <property name="port" value="${spring.mongodb.port}" />
+    </bean>
+	
+    <!-- mongo template -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongoClient" />
+        <constructor-arg value="${spring.mongodb.database}" />
+    </bean>
+
+    <!--  scan mongo repositories -->
+    <mongo:repositories base-package="com.att.vtm.repositories"/>
+</beans>
