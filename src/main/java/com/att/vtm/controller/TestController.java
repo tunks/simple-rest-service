@@ -7,6 +7,7 @@ package com.att.vtm.controller;
 
 import com.att.vtm.model.Ticket;
 import com.att.vtm.repositories.TicketRepository;
+import java.util.List;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,7 @@ public class TestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Ticket> getAssignedTickets(Pageable page) {
-        return ticketRepository.findAll(page);
+    public List<Ticket> getAssignedTickets(Pageable page) {
+        return (List<Ticket>) ticketRepository.findAll();
     }
 }
